@@ -1,0 +1,63 @@
+# Learning Spark - Lightning Fast Data Analytics Notes
+
+## Terminology
+- Application
+    - A user program built on Spark using its APIs. It consists of a driver program and executors on the cluster. 
+- SparkSession
+    - An object that provides a point of entry to interact with underlying Spark functionality and allows programming Spark with its APIs. In an interactive Spark shell, the Spark driver instantiates a SparkSession for you, while in a Spark application, you create a SparkSession object yourself. 
+- Job
+    - A parallel computation consisting of multiple tasks that gets spawned in response to a Spark action (e.g., save(), collect()). 
+- Stage
+    - Each job gets divided into smaller sets of tasks called stages that depend on each other. 
+- Task 
+    - A single unit of work or execution that will be sent to a Spark executor. 
+
+## Architecturaul Pieces
+- Catalytic optimizer
+    - Optimizer on byte level code for datasets and dataframes
+- Project Tungsten
+    - Generates compact RDD code for final execution
+
+## Performance Notes
+- Configuration Dials
+    - Cluster properties
+    - Partitioning
+- Coding Practices
+    - Wide vs Narrow Transformations
+        - Wide transformations require chunks from every partition
+        - Heavily favor narrow transformations
+    - Using dataframes
+        - Favor dataframes over others
+    - Use Structured APIs as opposed to RDDs wher epossible
+        - Will self-optimize
+        - Also cleaner and easier to read/maintain
+    - Caching or persisting frequently used data
+        - When to Cache and Persist 
+            - DataFrames commonly used during iterative machine learning training 
+            - DataFrames accessed commonly for doing frequent transformations during ETL or building data pipelines 
+        - When not to Cache an Persist
+            - DataFrames that are too big to fit in memory 
+            - An inexpensive transformation on a DataFrame not requiring frequent use, regardless of size 
+
+## Dataframes vs Datasets
+- If you want space and speed efficiency, use DataFrames. 
+- If you want strict compile-time type safety and don’t mind creating multiple case classes for a specific Dataset[T], use Datasets. 
+- If you want to take advantage of and benefit from Tungsten’s efficient serialization with Encoders, use Datasets. 
+    - Online it seems datasets are the best choice for scala as it uses the jvm optimizations
+    - If data is not strongly typed, use a dataframe
+- Managed vs Unmanaged Tables
+    - For a managed table, Spark manages both the metadata and the data in the file store. This could be a local filesystem, HDFS, or an object store such as Amazon S3 or Azure Blob. For 
+    - SQL Tables and Views an unmanaged table, Spark only manages the metadata, while you manage the data yoursel in an external data source such as Cassandra. 
+
+## Cloud Integration
+[Cloud Integration Documentation](https://spark.apache.org/docs/latest/cloud-integration.html)
+
+## Useful Sections
+- Nested Datra: Page 50
+- Scala Case Classes: Page 71
+    - Similar to Kotlin data classes
+- JSON notes on page 93
+- User Defined Functions: Page 114
+- Exploding Nested Data : Page 155
+- Performance tips page 174
+
