@@ -1,0 +1,71 @@
+
+# Spark Setup
+## CLI Install
+1. Installation
+- a. brew install apache-spark
+2. Open Shell
+- spark-shell -c spark.driver.bindAddress=127.0.0.1
+    - If no -c it cannot bind to a port
+
+## Scala Setup
+### Build SBT File
+```sbt
+ThisBuild / version := "0.1.0-SNAPSHOT"
+
+ThisBuild / scalaVersion := "2.13.15"
+
+lazy val root = (project in file("."))
+  .settings(
+    name := "SparkScalaPlayground",
+    idePackagePrefix := Some("com.playground.spark")
+  )
+
+resolvers += "JCenter" at "https://jcenter.bintray.com/"
+
+val sparkVersion        = "3.5.3"
+
+libraryDependencies ++= Seq(
+  "org.apache.spark"  %% "spark-core"      % sparkVersion,
+  "org.apache.spark"  %% "spark-streaming" % sparkVersion,
+  "org.apache.spark"  %% "spark-sql"       % sparkVersion,
+  "org.apache.spark"  %% "spark-hive"      % sparkVersion,
+  "org.apache.spark"  %% "spark-repl"      % sparkVersion,
+)
+```
+### Set up Spark Basic Format
+```scala
+object Main {
+  def main(args: Array[String]) {
+    val spark = SparkSession
+      .builder
+      .appName("MnMCount")
+      .master("local")
+      .config("spark.driver.host", "127.0.0.1")
+      .getOrCreate()
+
+    // Read in JSON
+    val df = spark.read.option("multiline", "true").json("{{path to file}}")
+
+    // Show Loaded Results
+    df.show()
+
+    spark.stop()
+  }
+}
+```
+### Running in IntelliJ
+Add the following VM Options in Run Configurations
+```
+--add-opens=java.base/java.lang=ALL-UNNAMED
+--add-opens=java.base/java.lang.invoke=ALL-UNNAMED 
+--add-opens=java.base/java.lang.reflect=ALL-UNNAMED 
+--add-opens=java.base/java.io=ALL-UNNAMED --add-opens=java.base/java.net=ALL-UNNAMED 
+--add-opens=java.base/java.nio=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED 
+--add-opens=java.base/java.util.concurrent=ALL-UNNAMED 
+--add-opens=java.base/java.util.concurrent.atomic=ALL-UNNAMED 
+--add-opens=java.base/sun.nio.ch=ALL-UNNAMED 
+--add-opens=java.base/sun.nio.cs=ALL-UNNAMED 
+--add-opens=java.base/sun.security.action=ALL-UNNAMED 
+--add-opens=java.base/sun.util.calendar=ALL-UNNAMED 
+--add-opens=java.security.jgss/sun.security.krb5=ALL-UNNAMED
+```
