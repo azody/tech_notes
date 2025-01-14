@@ -76,7 +76,28 @@ One-day Paris bike trip itinerary:
 
 ## Types of Agents
 1. CodeAgent
+- Default agent
+- Writes and executes python code at each step
+    - Python interpreter won't allow imports outside of white list
+        - In theory safe, would want to test
+    - an add additional imports to whitelist
+- Can use an E2B code executor instead of a local executor if desired
+    - Add flag use_e2b_executor=True
+- Sample
+    ```python
+    model = HfApiModel()
+    agent = CodeAgent(tools=[], model=model, additional_authorized_imports=['requests', 'bs4'])
+    agent.run("Could you get me the title of the page at url 'https://huggingface.co/blog'?")
+    ```
 2. Tool Calling Agent
+- Does not execute code
+- Sample
+    ```python
+    from smolagents import ToolCallingAgent
+
+    agent = ToolCallingAgent(tools=[], model=model)
+    agent.run("Could you get me the title of the page at url 'https://huggingface.co/blog'?")
+    ```
 
 ## Model
 Mode: A text-generation model to power your agent
@@ -120,3 +141,84 @@ agent.run(
     "Could you give me the 118th number in the Fibonacci sequence?",
 )
 ```
+
+## Tools
+Required Attributes
+- Name
+- Description
+- Input types and descriptions
+- Output type
+
+Default tools
+- DuckDuckGo web search*: performs a web search using DuckDuckGo browser.
+- Python code interpreter: runs your LLM generated Python code in a secure environment. 
+    - This tool will only be added to ToolCallingAgent if you initialize it with add_base_tools=True, since code-based agent can already natively execute Python code
+- Transcriber: a speech-to-text pipeline built on Whisper-Turbo that transcribes an audio to text.
+- Sample useage
+    ```python
+    from smolagents import DuckDuckGoSearchTool
+
+    search_tool = DuckDuckGoSearchTool()
+    print(search_tool("Who's the current president of Russia?"))
+    ```
+Creating Custom Tool
+- Decorate a function with @tool
+- Sample
+    ```python
+    from smolagents import tool
+
+    @tool
+    def model_download_tool(task: str) -> str:
+        """
+        This is a tool that returns the most downloaded model of a given task on the Hugging Face Hub.
+        It returns the name of the checkpoint.
+
+        Args:
+            task: The task for which to get the download count.
+        """
+        most_downloaded_model = next(iter(list_models(filter=task, sort="downloads", direction=-1)))
+        return most_downloaded_model.id
+    ```
+- How to call
+    ```python
+    from smolagents import CodeAgent, HfApiModel
+    agent = CodeAgent(tools=[model_download_tool], model=HfApiModel())
+    agent.run(
+        "Can you give me the name of the model that has the most downloads in the 'text-to-video' task on the Hugging Face Hub?"
+    )
+    ```
+
+## Multi Agent Tools
+- Introduce with Microsoft's Autogen framework
+- Several agents work together to complete a task instead of only one
+    - Yields better performance on most benchmarks
+    - Allows for efficient specialization
+- How to build
+    - Encapsulate in a ManagedAgent object
+    - Sample
+        ```python
+        from smolagents import CodeAgent, HfApiModel, DuckDuckGoSearchTool, ManagedAgent
+
+        model = HfApiModel()
+
+        web_agent = CodeAgent(tools=[DuckDuckGoSearchTool()], model=model)
+
+        managed_web_agent = ManagedAgent(
+            agent=web_agent,
+            name="web_search",
+            description="Runs web searches for you. Give it your query as an argument."
+        )
+
+        manager_agent = CodeAgent(
+            tools=[], model=model, managed_agents=[managed_web_agent]
+        )
+
+        manager_agent.run("Who is the CEO of Hugging Face?")
+        ```
+
+## Further Reading
+[How Code Agents Work](https://huggingface.co/docs/smolagents/tutorials/secure_code_execution)
+
+[Building Good Agents](https://huggingface.co/docs/smolagents/tutorials/building_good_agents)
+
+[In Depth Guide for Tool Useage](https://huggingface.co/docs/smolagents/tutorials/building_good_agents)
