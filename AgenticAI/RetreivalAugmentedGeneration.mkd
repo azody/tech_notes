@@ -1,0 +1,52 @@
+# Retrieval-Augmented Generation
+
+## What
+Purpose
+- Optimize Output of large language models
+
+How
+- Reference an authoritative knowledge base outside of it's training date sources before generating a respons
+
+## Why
+Challenges of Traditional LLMs
+- Present false information when no known answer
+- Presenting out of date information
+- Present generic data instead of a specific answer
+- Using non-authoritative sources as fact
+- Terminology confusion due to cross-domain nature
+
+Benefits
+- Cost effective implementation
+    - Do not need to retrain models
+- Current information
+    - Use RAG to connect to up to date information
+- Enhanced Trust
+    - LLM can prsent data with source attribution
+    - Users can verify data themselves
+- Increase developer control
+    - Restrict sensitive information
+    - Change information sources to adapt to new requirements or cross-functional useage
+
+## How
+- Create External Data
+    - External Data is the additional data outside of the thraining data
+    - Can accept a wide variety of data types (files, database, long-form text)
+    - Embedding Language Models - AI technique that convertsdata into numerical representations and stores as a vector
+- Retreive Relevant Data
+    - User query is converted to a vector representation
+    - Then mated with the vector databases
+    - Database returns data that is highly related to the user query
+- Augment LLM Prompt
+    - RAG model augments the use inpur by adding the relecant retieved data in contxt
+    - Uses prompt engineering techniques to generate an accurate answer
+- Updating external data
+    - Asynchronously update documents
+    - Asynchronously updateembedding representation of documents
+    - Can be real time or batch depending on needs
+
+## Links
+[Amazon AWS](https://aws.amazon.com/what-is/retrieval-augmented-generation/)
+
+[NVIDI Blog](https://blogs.nvidia.com/blog/what-is-retrieval-augmented-generation/)
+
+[Github Blog](https://github.blog/ai-and-ml/generative-ai/what-is-retrieval-augmented-generation-and-what-does-it-do-for-generative-ai/)
