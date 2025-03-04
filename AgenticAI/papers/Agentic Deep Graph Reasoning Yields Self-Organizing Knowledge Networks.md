@@ -1,8 +1,11 @@
 # Agentic Deep Graph Reasoning Yields Self-Organizing Knowledge Networks
 
 Title: Agentic Deep Graph Reasoning Yields Self-Organizing Knowledge Networks
+
 Author: Markus Buehler
+
 Date: 2025-02-19
+
 Link: https://arxiv.org/abs/2502.13025
 
 Keywords: Artificial Intelligence, Science, Graph Theory, Category Theory, Materials Science, Materiomics, Language Modeling, Reasoning, Isomorphisms, Engineering
@@ -139,3 +142,47 @@ Work here treats reasoning as an active recursive process that expands knowledge
 ### Hypothesis
 We hypothesize that recursive graph expansion enables self-organizing knowledge formation,
 allowing intelligence-like behavior to emerge without predefined ontologies, external supervision, or centralized control. Using a pre-trained model, Graph-PReFLexOR (an autonomous graph-reasoning model trained on a corpus of biological and biologically inspired materials principles) we demonstrate that knowledge graphs can continuously expand in a structured yet open-ended manner, forming scale-free networks with emergent conceptual hubs and interdisciplinary bridge nodes. Our findings suggest that intelligence-like reasoning can arise from recursive self-organization, challenging conventional paradigms and advancing possibilities for autonomous scientific discovery and scalable epistemic reasoning.
+
+## Results and Discussion
+Graph native reasoning model engages in a continuous recursive process
+- 1,000 iterations
+- Example focused on designing impact-resistant materials
+- Sample Prompts used
+    - Prompt: Describe a way to design impact resistant materials
+    - Discuss an interesting idea in bio-inspired materials science
+
+### Basic Analysis of Recursive Graph Growth
+
+Number of nodes and edges exhibit linear growth iterations
+- Indicates reasoning process systematically expands the graph without saturation
+
+Number of edges slightly steeper than number of nodes
+- Suggets each new concept introduced is integrated into an increasingly dense network
+
+Average degree of the graph stewadily increases and than stabilizes at around 6 edges per node
+- Signifies a balance betweren exploration and connectivitiy
+
+Size of the largest connected component (LCC) grows proportionally to total number of node
+- Reinforces observation that the graphs is a unified traversable structure rather than fragmenting
+
+### Structurual Evolution of Recursive Knowledge Graph
+
+Louvian modularity
+- Average shortest path length and graph diameter over iteration
+- Measures strenghth of communitiy structure within the graph
+- Results: Early peak at 0.75 and than stabilized at 0.70
+    - Indicates model preserves structuraul coherence
+    - Recursive expansion does not collapse existing conceptual groups
+
+Average Shortest Path Length (SPL)
+- Results: Increases sharply before stabilizing
+    - Increase due to number of new nodes introduced originally
+    - Subsequent recursion integrates into existing structure
+        - Indicates system does not suffer from runaway growth problems
+
+Graph Diameter
+- Results: Stepwise function that stabilizes around 16-18
+    - Stabilization indicates ability to autonmously maintain structured conceptual groupiong
+    - Resembles human-like hierarchal knowledge formation
+
+### Analysis of Advanced Graph Evolution Metrics
