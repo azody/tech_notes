@@ -1,0 +1,55 @@
+# Agentic Deep Graph Reasoning Yields Self-Organizing Knowledge Networks
+
+Title: BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding
+
+Author: Jacob Devlin, Ming-Wei Chang, Kenton Lee, Kristina Toutanova
+
+Date: 2019-05-24
+
+## Abstract
+
+Creation of new language representational mode: BERT
+- Bidirectional Encoder Representations from Transformers
+- Designed to pretrain deep bidirectional representation from unlabeled text
+    - Joint conditioning on bot left and right contexzt in all layers
+- Conecputually simple and empirically powerful
+
+## Introduction
+
+State of Large model pre-training
+- Pretraining has been shown to be effective for improving naturaul language processing tasks
+    - Include sentence level tasks and paraphrasing
+        - Predict relationships
+    - Token level tasks: named entity recognition and question answering
+- Two existing strategies for applying pre trained language representations to down stream tasks
+    - Feature based
+        - Used by ELMo
+        - Task specific architectures include pretrained representations as additional features
+    - Fine tuning
+        -  Used by Generative Pre-trained Transformer (OpenAI GPT) 
+        - Introduces minimal task-specific and is trained on the downstream tasks by fine-tuning all pretrained parametrs
+    - Both use unidirectional language models to learn general language representations
+
+Limitations with current state
+- Standard language models unidirectinal
+    - Limits choice of architectures that can be used during pre training
+        - Big limitation in question answering, iimportant to incorporate context from both directions
+    - Every token can only attend to previous tokens
+- Suboptimal for sentence level tasks
+
+Improvements using BERT
+- Uses a Masked Language Model MLM pre-training objective
+    - MLM randomly masks token from inbput and the objective is to predict the original vocabulary id of the masked word based only on its context
+- MLM objective anablse the representation to fuse left and right context
+- Also use next sentence prediction objective
+    - Jointly prretrains text-pair representations
+
+Contributions of this paper
+1. Demonstrate the importance of bidriectional pre-training for language representations
+2. Pre trained representations reduce the need for heavily engineered task specific architectures
+- First state of the art performance model that works on sentence level and token level tasks
+3. Advances state of the art for eleven NLP tasks
+
+Repo: https://github.com/google-research/bert
+
+## Related Work
