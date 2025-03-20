@@ -53,3 +53,15 @@ Contributions of this paper
 Repo: https://github.com/google-research/bert
 
 ## Related Work
+
+### Unsupervised Feature-based Approaches
+
+Active area of research for decades
+- Non Neural since 1992
+- Neural beggining in 2013
+ELMo an dits predeccesor generalize traditional word embediing along a different dimenstion
+- Extract context sensitive feature from a left to right and right to left representations
+- Resulted in state of the art gains in question answering, sentiment analysis, named entity recognition
+- ELMo model is feature-based and not ddeply birdirectional
+
+### Unsupervised Fine-tuning Approaches
