@@ -91,3 +91,19 @@ LangGraph
 - Can use Langchain LLMs and VectorStores
 
 ## Simple Graph
+
+Edges
+- Connect Nodes
+- Normal Edge:  Always progressed the same i.e. Start to Node 1
+- Conditinal Edge: Branching options i.e. Node1 can go to Node2 or Node 3
+
+State
+- Inpur for all nodes ande edges of the graph
+
+Nodes
+- Python functions
+- first parameter is the state
+
+Graph
+- Brings everything together
+- First add nodes
