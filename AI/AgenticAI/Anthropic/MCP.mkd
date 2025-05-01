@@ -1,0 +1,8 @@
+# Model Context Protocol (MCP)
+
+## Why MCP over others
+- Solves the problem of integrating AI Agents in a production environment
+    - Makes it easier to use 
+
+
+## Guide for Research
