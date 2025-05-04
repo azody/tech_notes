@@ -1,0 +1,37 @@
+# Notes on Elastic Search Vector Database
+
+## What is IT
+
+Embedding
+- Data that has been converted into an array of numbers
+    - Array of numbers is known as a vector
+        - Contains patterns of relationships
+        - Act as a multi dimesnional map to measure simularity
+            - Dog and puppy are used together frequently, the vector would contain numbers that are close together (0.5 and 0.51)
+            - Has hundreds of dimensions
+        - Words, images and other data types can be turned into vectors
+            - How google does similiar image search
+
+Vector Database
+- Where embeddings are stored
+- Use cases
+    - Searching - where results are returned in order of relevance to a query
+        - Most commonly used
+    - Clustering - text strings are grouped by simalarity
+    - Recomendations - items with related text string are recomended
+    - Classification - Where text strings are classified by their most similiar label
+- How to create an embedding with OpenAI
+    - Post request to /embeddings
+        - model and input as parameters
+        - text-embedding-ada-002
+            - cheapest option
+- Creating a Table
+    - CREATE TABLE IF NOT EXISTS myvectortable(
+        text TEXT,
+        vecto BLOB
+    )
+- Inserting data
+    - INSERT INTO myvectortable (text, vector) VALUES ("dog"), JSON_ARRAY_PACK("returned from open ai")
+    - Add more as needed
+- Find closes match
+    - SELECT tedxt, dot_product(vector, JSON_ARRAY_PACK("search vector[]")) as score FROM myvectortable ORDERBY score DESC limit 5

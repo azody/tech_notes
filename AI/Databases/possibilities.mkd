@@ -1,0 +1,7 @@
+# Databases to research
+
+1. Open Search
+2. Pinecone Vector Database
+3. Milvus
+4. PG Vector
+
