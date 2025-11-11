@@ -1,1 +1,7 @@
+# Palantir Ontology Building
 Link: https://www.palantir.com/docs/foundry/ontology/overview
+
+## Object and Link Types
+
+- Objects, properties and links defing semantics of an organization
+- 
